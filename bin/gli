@@ -51,11 +51,15 @@ command [:init,:scaffold] do |c|
   c.desc 'Overwrite/ignore existing files and directories'
   c.switch [:force]
 
+  c.desc "Put a \"require 'rubygems'\" at the top of the generated executable"
+  c.long_desc "This is considered a bad practice because your code, if distributed via RubyGems, will have 'rubygems' required at runtime.  You should not need this"
+  c.switch [:'require-rubygems']
+
   c.action do |g,o,args|
     if args.length < 1
       raise 'You must specify the name of your project'
     end
-    Scaffold.create_scaffold(g[:r],!o[:notest],o[:e],args[0],args[1..-1],o[:force],g[:n])
+    Scaffold.create_scaffold(g[:r],!o[:notest],o[:e],o[:'require-rubygems'],args[0],args[1..-1],o[:force],g[:n])
   end
 end
 

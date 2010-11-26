@@ -4,14 +4,14 @@ require 'fileutils'
 module GLI
   class Scaffold
 
-    def self.create_scaffold(root_dir,create_test_dir,create_ext_dir,project_name,commands,force=false,dry_run=false)
+    def self.create_scaffold(root_dir,create_test_dir,create_ext_dir,require_rubygems,project_name,commands,force=false,dry_run=false)
       dirs = [File.join(root_dir,project_name,'lib')]
       dirs << File.join(root_dir,project_name,'bin')
       dirs << File.join(root_dir,project_name,'test') if create_test_dir
       dirs << File.join(root_dir,project_name,'ext') if create_ext_dir
 
       if mkdirs(dirs,force,dry_run)
-        mk_binfile(root_dir,create_ext_dir,force,dry_run,project_name,commands)
+        mk_binfile(root_dir,create_ext_dir,require_rubygems,force,dry_run,project_name,commands)
         mk_readme(root_dir,dry_run,project_name)
         mk_gemspec(root_dir,dry_run,project_name)
         mk_rakefile(root_dir,dry_run,project_name,create_test_dir)
@@ -114,7 +114,7 @@ EOS
       end
     end
 
-    def self.mk_binfile(root_dir,create_ext_dir,force,dry_run,project_name,commands)
+    def self.mk_binfile(root_dir,create_ext_dir,require_rubygems,force,dry_run,project_name,commands)
       bin_file = File.join(root_dir,project_name,'bin',project_name)
       if !File.exist?(bin_file) || force
         if !dry_run
@@ -136,8 +136,8 @@ end
 EOS
             file.puts '$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + \'/../lib\')'
             file.puts '$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + \'/../ext\')' if create_ext_dir
+            file.puts "require 'rubygems'" if require_rubygems
             file.puts <<EOS
-require 'rubygems'
 require 'gli'
 
 include GLI
