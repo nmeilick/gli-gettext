@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-03-03 02:29+0100\n"
+"PO-Revision-Date: 2012-03-03 00:06+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: all.tmp:52 all.tmp:575
+msgid "Show this message"
+msgstr "Zeige diesen Hilfetext"
+
+#: all.tmp:128 all.tmp:140
+msgid "in global options"
+msgstr "in globalen Optionen"
+
+#: all.tmp:284
+msgid "error: %{message}"
+msgstr "Fehler: %{message}"
+
+#: all.tmp:287
+msgid "Use '%{app} help' for a list of commands"
+msgstr "Verwende '%{app} help' für eine Befehlsliste"
+
+#: all.tmp:289
+msgid "Use '%{app} help %{command}' for a list of command options"
+msgstr "Verwende '%{app} help %{command}' für eine Liste der Befehlsoptionen"
+
+#: all.tmp:292
+msgid "Use '%{app} help' for a list of global options"
+msgstr "Verwende '%{app} help' für eine Liste aller globalen Optionen"
+
+#: all.tmp:424 all.tmp:507
+msgid "Unknown command '%{command}'"
+msgstr "Unbekannter Befehl '%{command}'"
+
+#: all.tmp:498 all.tmp:504
+msgid "Unknown option %{option}"
+msgstr "Unbekannte Option %{option}"
+
+#: all.tmp:540
+msgid "%{name} has already been specified as a %{type} %{context}"
+msgstr "%{name} wurde bereits als %{type} %{context} spezifiziert"
+
+#: all.tmp:546
+msgid ""
+"%{name} has already been specified as an alias of %{type} %{one_option_name} "
+"%{context}"
+msgstr ""
+"%{name} wurde bereits als ein Alias von %{type} %{one_option_name} "
+"%{context} spezifiziert"
+
+#: all.tmp:633 all.tmp:1216
+msgid "[command options]"
+msgstr "[Befehlsoptionen]"
+
+#: all.tmp:659 all.tmp:668
+msgid "in command %{command}"
+msgstr "in Befehl %{command}"
+
+#: all.tmp:747
+msgid "%{name} has spaces; they are not allowed"
+msgstr "%{name} enthält Leerzeichen: diese sind nicht erlaubt"
+
+#: all.tmp:869
+msgid "%{arg} requires an argument"
+msgstr "%{arg} benötigt ein Argument"
+
+#: all.tmp:883
+msgid "%{arg} requires an argument via %{arg}=argument"
+msgstr "%{arg} benötigt ein Argument via %{arg}=Argument"
+
+#: all.tmp:1170
+msgid "Shows list of commands or help for one command"
+msgstr "Zeige eine Befehlsliste oder einen Hilfetext für einen Befehl"
+
+#: all.tmp:1170
+msgid "[command]"
+msgstr "[Befehl]"
+
+#: all.tmp:1170
+msgid ""
+"Gets help for the application or its commands.  Can also list the commands "
+"in a way helpful to creating a bash-style completion function"
+msgstr ""
+"Zeigt den Hilfetext der Anwendung oder seiner Befehle an. Die Befehle können "
+"dabei auch auf eine Art und Weise angezeigt werden, die bei der Erzeugung "
+"von bash-artigen Komplettierungsfunktionen hilft"
+
+#: all.tmp:1171
+msgid ""
+"List all commands one line at a time, for use with shell completion "
+"([command] argument is partial command to match)"
+msgstr ""
+"Listet alle Befehle zeilenweise für die Benutzung durch Shell "
+"Komplettierungsfunktionen auf ([Befehl] Argument ist ein Teil des jeweiligen "
+"Befehlsnamens)"
+
+#: all.tmp:1210
+msgid "usage: %{app}"
+msgstr "Syntax: %{app}"
+
+#: all.tmp:1213 all.tmp:1413
+msgid "[global options]"
+msgstr "[Globale Optionen]"
+
+#: all.tmp:1215
+msgid "command"
+msgstr "Befehl"
+
+#: all.tmp:1220
+msgid "Version: %{version}"
+msgstr "Version: %{version}"
+
+#: all.tmp:1223
+msgid "Global Options:"
+msgstr "Globale Optionen:"
+
+#: all.tmp:1229
+msgid "Commands:"
+msgstr "Befehle:"
+
+#: all.tmp:1250
+msgid "Command Options:"
+msgstr "Befehlsoptionen:"
+
+#: all.tmp:1254
+msgid "No such command %{command}"
+msgstr "Unbekannter Befehl %{command}"
+
+#: all.tmp:1271
+msgid "(default: %{default})"
+msgstr "(Standard: %{default})"
+
+#: all.tmp:1330
+msgid "Initialize the config file using current global options"
+msgstr ""
+"Initialisiere die Konfigurationsdatei mittels der aktuellen globalen Optionen"
+
+#: all.tmp:1330
+msgid ""
+"Initializes a configuration file where you can set default options for "
+"command line flags, both globally and on a per-command basis.  These "
+"defaults override the built-in defaults and allow you to omit commonly-used "
+"command line flags when invoking this program"
+msgstr ""
+
+#: all.tmp:1332
+msgid "force overwrite of existing config file"
+msgstr "Erzwinge das Überschreiben bestehender Konfigurationsdateien"
+
+#: all.tmp:1349
+msgid "Not overwriting existing config file %{file}, use --force to override"
+msgstr ""
+"Überschreibe bestehende Konfigurationsdatei %{file} nicht, verwende --force "
+"um die Datei zu überschreiben."
+
+#: all.tmp:1361
+msgid ""
+"Generates RDoc (and other types of documentation) for your command line "
+"interface"
+msgstr ""
+
+#: all.tmp:1362
+msgid ""
+"Create a very basic scaffold for a cheat-style cheatsheet, in addition to "
+"rdoc"
+msgstr "Erzeuge zusätzlich zum rdoc ein einfaches Gerüst für ein Cheatsheet"
+
+#: all.tmp:1364
+msgid "Include a manapage suitable for gem man, in addition to rdoc"
+msgstr "Erzeuge zusätzlich zum rdoc eine für gem man geeignete Manpage "
+
+#: all.tmp:1366
+msgid "Do not create rdoc"
+msgstr "Erzeuge kein rdoc"
+
+#: all.tmp:1415
+msgid "command_name"
+msgstr "befehlsname"
+
+#: all.tmp:1416
+msgid "[command-specific options]"
+msgstr "[befehlsspezifische-Optionen]"
+
+#: all.tmp:1417
+msgid "arguments..."
+msgstr "Argumente..."
+
+#: all.tmp:1418
+msgid "* Use the command +help+ to get a summary of commands"
+msgstr "* Verwende den Befehl +help+ um eine Befehlsübersicht zu erhalten"
+
+#: all.tmp:1419
+msgid ""
+"* Use the command <tt>help command_name</tt> to get a help for +command_name+"
+msgstr ""
+"* Verwende den Befehl <tt>help befehlsname</tt> um Hilfe für +befehlsname+ "
+"zu erhalten"
+
+#: all.tmp:1420
+msgid ""
+"* Use <tt>--</tt> to stop command line argument processing; useful if your "
+"arguments have dashes in them"
+msgstr ""
+"* Verwende <tt>--</tt> um die Kommandozeilenparameterverarbeitung zu "
+"beenden; hilfreich wenn die Argumente mit Bindestrichen beginnen"
+
+#: all.tmp:1423
+msgid "== Global Options"
+msgstr "== Globale Optionen"
+
+#: all.tmp:1424
+msgid ""
+"These options are available for any command and are specified before the "
+"name of the command"
+msgstr ""
+"Diese Optionen sind für alle Befehle verfügbar und werden vor dem "
+"Befehlsnamen angegeben"
+
+#: all.tmp:1427
+msgid "== Commands"
+msgstr "== Befehle"
+
+#: all.tmp:1439
+msgid "*Aliases*"
+msgstr "*Aliase*"
+
+#: all.tmp:1448
+msgid "==== Options"
+msgstr "==== Optionen"
+
+#: all.tmp:1449
+msgid "These options are specified *after* the command."
+msgstr "Diese Optionen werden *nach* dem Befehl angegeben."
+
+#: all.tmp:1498
+msgid "Describe your project here"
+msgstr "Deine Projektbeschreibung"
+
+#: all.tmp:1501 all.tmp:1506 all.tmp:1538 all.tmp:1554 all.tmp:1605
+#: all.tmp:1610 all.tmp:1615 all.tmp:1719
+msgid "Created %{path}"
+msgstr "Erzeugt %{path}"
+
+#: all.tmp:1504
+msgid ""
+"Generate this with\n"
+"    %{project_name} rdoc\n"
+"After you have described your command line interface"
+msgstr ""
+"Erzeuge dies mittels\n"
+"    %{project_name} rdoc\n"
+"nachdem Du das Kommandozeileninterface beschrieben hast"
+
+#: all.tmp:1723
+msgid "%{file} exists, use --force to override"
+msgstr "Datei %{file} existiert, verwende --force um sie zu überschreiben"
+
+#: all.tmp:1734
+msgid "%{path} exists, use --force to override"
+msgstr ""
+"Verzeichnis %{path} existiert, verwende --force um dieses zu überschreiben"
+
+#: all.tmp:1742
+msgid "Creating directory %{path}..."
+msgstr "Erzeuge Verzeichnis %{path}..."
+
+#: all.tmp:1744
+msgid "dry-run; %{path} not created"
+msgstr "Testlauf; %{path} nicht erzeugt"
+
+#: all.tmp:1750
+msgid "Exiting..."
+msgstr "Beende..."
