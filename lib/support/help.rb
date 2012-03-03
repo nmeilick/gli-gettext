@@ -26,11 +26,8 @@ module GLI
     def initialize(version,*omit_from_list)
       @omit_from_list = omit_from_list
       @version = version
-      super(:help,
-            'Shows list of commands or help for one command',
-            '[command]',
-            'Gets help for the application or its commands.  Can also list the commands in a way helpful to creating a bash-style completion function')
-      self.desc 'List all commands one line at a time, for use with shell completion ([command] argument is partial command to match)'
+      super(:help, _('Shows list of commands or help for one command'), _('[command]'), _('Gets help for the application or its commands.  Can also list the commands in a way helpful to creating a bash-style completion function'))
+      self.desc _('List all commands one line at a time, for use with shell completion ([command] argument is partial command to match)')
       self.switch [:c,:completion]
     end
 
@@ -69,26 +66,26 @@ module GLI
         @@output.puts wrap(GLI.program_desc,0)
         @@output.puts
       end
-      usage = "usage: #{GLI.program_name} "
+      usage = _("usage: %{app}") % { :app => GLI.program_name } + " "
       all_options = GLI.switches.merge(GLI.flags)
       if !all_options.empty?
-          usage += "[global options] "
+        usage += _("[global options]") + " "
       end
-      usage += "command"
-      usage += ' [command options]'
+      usage += _("command")
+      usage += ' ' + _('[command options]')
       @@output.puts usage
       @@output.puts
       if @version
-        @@output.puts "Version: #{@version}"
+        @@output.puts _("Version: %{version}") % { :version => @version }
         @@output.puts
       end
-      @@output.puts 'Global Options:' if !all_options.empty?
+      @@output.puts _('Global Options:') if !all_options.empty?
       output_command_tokens_for_help(all_options)
       @@output.puts if !all_options.empty?
     end
 
     def list_commands
-      @@output.puts 'Commands:'
+      @@output.puts _('Commands:')
       output_command_tokens_for_help(commands_to_show,:names)
     end
 
@@ -109,11 +106,11 @@ module GLI
         all_options = command.switches.merge(command.flags)
         if !all_options.empty?
           @@output.puts
-          @@output.puts "Command Options:"
+          @@output.puts _("Command Options:")
           output_command_tokens_for_help(all_options)
         end
       else
-        @@output.puts "No such command #{command_name}"
+        @@output.puts _("No such command %{command}") % { :command => command_name }
       end
     end
 
@@ -130,7 +127,7 @@ module GLI
         token = tokens[name]
         description = token.description || ''
         if token.kind_of? Flag 
-          description += " (default: #{token.default_value})" if token.default_value
+          description += " " + _("(default: %{default})") % { :default => token.default_value } if token.default_value
         end
         description = wrap(description,max+7)
         string = sprintf "    %-#{max}s - %s",token.send(usage_name),description

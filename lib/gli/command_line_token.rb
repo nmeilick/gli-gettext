@@ -39,7 +39,7 @@ module GLI
       names = [names].flatten.map { |name| name.to_sym } 
       names_hash = Hash.new
       names.each do |name| 
-        raise ArgumentError.new("#{name} has spaces; they are not allowed") if name.to_s =~ /\s/
+        raise ArgumentError.new(_("%{name} has spaces; they are not allowed") % { :name => name }) if name.to_s =~ /\s/
         names_hash[self.class.name_as_string(name)] = true
       end
       name = names.shift

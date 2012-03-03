@@ -23,15 +23,15 @@ module GLI
       return if dry_run
       File.open("#{root_dir}/#{project_name}/README.rdoc",'w') do |file|
         file << "= #{project_name}\n\n"
-        file << "Describe your project here\n\n"
+        file << _("Describe your project here")+"\n\n"
         file << ":include:#{project_name}.rdoc\n\n"
       end
-      puts "Created #{root_dir}/#{project_name}/README.rdoc"
+      puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/README.rdoc" }
       File.open("#{root_dir}/#{project_name}/#{project_name}.rdoc",'w') do |file|
         file << "= #{project_name}\n\n"
-        file << "Generate this with\n    #{project_name} rdoc\nAfter you have described your command line interface"
+        file << _("Generate this with\n    %{project_name} rdoc\nAfter you have described your command line interface") % { :project_name => project_name }
       end
-      puts "Created #{root_dir}/#{project_name}/#{project_name}.rdoc"
+      puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/#{project_name}.rdoc" }
     end
 
     def self.mk_gemspec(root_dir,dry_run,project_name)
@@ -63,7 +63,7 @@ bin/#{project_name}
 end
 EOS
       end
-      puts "Created #{root_dir}/#{project_name}/#{project_name}.gemspec"
+      puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/#{project_name}.gemspec" }
     end
 
     def self.project_name_as_module_name(project_name)
@@ -79,7 +79,7 @@ module #{project_name_as_module_name(project_name)}
 end
 EOS
       end
-      puts "Created #{root_dir}/#{project_name}/lib/#{project_name}_version.rb"
+      puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/lib/#{project_name}_version.rb" }
     end
     def self.mk_rakefile(root_dir,dry_run,project_name,create_test_dir)
       return if dry_run
@@ -130,17 +130,17 @@ class TC_testNothing < Test::Unit::TestCase
 end
 EOS
           end
-          puts "Created #{root_dir}/#{project_name}/test/tc_nothing.rb"
+          puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/test/tc_nothing.rb" }
         else
           file.puts "task :default => :package\n"
         end
       end
-      puts "Created #{root_dir}/#{project_name}/Rakefile"
+      puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/Rakefile" }
       File.open("#{root_dir}/#{project_name}/Gemfile",'w') do |bundler_file|
         bundler_file.puts "source :rubygems"
         bundler_file.puts "gemspec"
       end
-      puts "Created #{root_dir}/#{project_name}/Gemfile"
+      puts _("Created %{path}") % { :path => "#{root_dir}/#{project_name}/Gemfile" }
     end
 
     def self.mk_binfile(root_dir,create_ext_dir,force,dry_run,project_name,commands)
@@ -244,11 +244,11 @@ end
 
 exit GLI.run(ARGV)
 EOS
-            puts "Created #{bin_file}"
+            puts _("Created %{path}") % { :path => bin_file }
           end
         end
       else
-        puts bin_file + " exists; use --force to override"
+        puts _("%{file} exists, use --force to override") % { :path => bin_file }
         return false
       end
       true
@@ -259,22 +259,23 @@ EOS
       if !force
         dirs.each do |dir|
           if File.exist? dir
-            raise "#{dir} exists; use --force to override"
+            raise _("%{path} exists, use --force to override") %
+            { :path => dir }
             exists = true
           end
         end
       end
       if !exists
         dirs.each do |dir|
-          puts "Creating dir #{dir}..."
+          puts _("Creating directory %{path}...") % { :path => dir }
           if dry_run
-            puts "dry-run; #{dir} not created"
+            puts _("dry-run; %{path} not created") % { :path => dir }
           else
             FileUtils.mkdir_p dir
           end
         end
       else
-        puts "Exiting..."
+        puts _("Exiting...")
         return false
       end
       true

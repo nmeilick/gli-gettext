@@ -25,7 +25,7 @@ module GLI
               args.delete_at index
               return value
             else
-              raise BadCommandLine.new("#{matched} requires an argument")
+              raise BadCommandLine.new(_("%{arg} requires an argument") % { :arg => matched })
             end
           else
             return value
@@ -39,7 +39,7 @@ module GLI
       if @names[arg]
         return [true,arg,nil] if arg.length == 2
         # This means we matched the long-form, but there's no argument
-        raise BadCommandLine.new("#{arg} requires an argument via #{arg}=argument")
+        raise BadCommandLine.new(_("%{arg} requires an argument via %{arg}=argument") % { :arg => arg })
       end
       @names.keys.each() do |name|
         match_string = "^#{name}=(.*)$"

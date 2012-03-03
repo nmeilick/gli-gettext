@@ -13,60 +13,69 @@ end
 
 $: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib') 
 
+# Try to load gettext library
+begin
+  require "gettext"
+  GetText.bindtextdomain "gli-lib"
+rescue Exception
+end
 require 'gli'
 require 'support/scaffold'
 require 'gli_version'
 
 include GLI
+bindtextdomain "gli"
 
-program_desc 'gli allows you to create the scaffolding for a GLI-powered application'
+program_desc _('gli allows you to create the scaffolding for a GLI-powered application')
 
 version GLI::VERSION
-desc 'Be verbose'
+desc _('Be verbose')
 switch :v
 
-desc 'Dry run; don''t change the disk'
+desc _("Dry run; don't change the disk")
 switch :n
 
-desc 'Root dir of project'
-long_desc 'This is the directory where the project''s directory will be made, so if you specify a project name ''foo'' and the root dir of ''.'', the directory ''./foo'' will be created'
+desc _('Root dir of project')
+long_desc _("This is the directory where the project's directory will be made, so if you specify a project name 'foo' and the root dir of '.', the directory './foo' will be created")
 default_value '.'
 flag [:r,:root]
 
-desc 'Create a new GLI-based project'
-long_desc <<EOS
+desc _('Create a new GLI-based project')
+long_desc _(<<EOS
 This will create a scaffold command line project that uses GLI
 for command line processing.  Specifically, this will create
 an executable ready to go, as well as a lib and test directory, all
 inside the directory named for your project
 EOS
-arg_name 'project_name [command[ command]*]'
+)
+arg_name _('project_name [command[ command]*]')
 command [:init,:scaffold] do |c|
 
-  c.desc 'Create an ext dir'
+  c.desc _('Create an ext dir')
   c.switch [:e,:ext]
 
-  c.desc 'Do not create a test dir'
+  c.desc _('Do not create a test dir')
   c.switch [:notest]
 
-  c.desc 'Overwrite/ignore existing files and directories'
+  c.desc _('Overwrite/ignore existing files and directories')
   c.switch [:force]
 
   c.action do |g,o,args|
     if args.length < 1
-      raise 'You must specify the name of your project'
+      raise _('You must specify the name of your project')
     end
     Scaffold.create_scaffold(g[:r],!o[:notest],o[:e],args[0],args[1..-1],o[:force],g[:n])
   end
 end
 
 pre do |global,command,options,args|
-  puts "Executing #{command.name}" if global[:v]
+  puts _("Executing %{command}") % { :command => command.name } if global[:v]
   true
 end
 
 post do |global,command,options,args|
-  puts "Executed #{command.name}" if global[:v]
+  puts _("Executing %{command}") % { :command => command.name } if global[:v]
+  true
 end
 
 exit run(ARGV)

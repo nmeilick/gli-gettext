@@ -5,12 +5,12 @@ module GLI
   class RDocCommand < Command # :nodoc:
 
     def initialize
-      super(:rdoc,'Generates RDoc (and other types of documentation) for your command line interface')
-      self.desc 'Create a very basic scaffold for a cheat-style cheatsheet, in addition to rdoc'
+      super(:rdoc, _('Generates RDoc (and other types of documentation) for your command line interface'))
+      self.desc _('Create a very basic scaffold for a cheat-style cheatsheet, in addition to rdoc')
       self.switch 'cheatsheet'
-      self.desc 'Include a manapage suitable for gem man, in addition to rdoc'
+      self.desc _('Include a manapage suitable for gem man, in addition to rdoc')
       self.switch 'manpage'
-      self.desc 'Do not create rdoc'
+      self.desc _('Do not create rdoc')
       self.switch 'no-rdoc'
     end
 
@@ -57,21 +57,21 @@ module GLI
         file << " "
         global_options = GLI.switches.merge(GLI.flags)
         if (global_options && global_options.length > 0)
-          file << "[global options] "
+          file << _("[global options]") +" "
         end
-        file << "command_name"
-        file << " [command-specific options]"
-        file << " [--] arguments...\n\n"
-        file << "* Use the command +help+ to get a summary of commands\n"
-        file << "* Use the command <tt>help command_name</tt> to get a help for +command_name+\n"
-        file << "* Use <tt>--</tt> to stop command line argument processing; useful if your arguments have dashes in them\n"
+        file << _("command_name")
+        file << " "+_("[command-specific options]")
+        file << " [--] "+_("arguments...")+"\n\n"
+        file << _("* Use the command +help+ to get a summary of commands") +"\n"
+        file << _("* Use the command <tt>help command_name</tt> to get a help for +command_name+")+"\n"
+        file << _("* Use <tt>--</tt> to stop command line argument processing; useful if your arguments have dashes in them")+"\n"
         file << "\n"
         if (global_options && global_options.length > 0)
-          file << "== Global Options\n"
-          file << "These options are available for any command and are specified before the name of the command\n\n"
+          file << _("== Global Options") + "\n"
+          file << _("These options are available for any command and are specified before the name of the command")+"\n\n"
           output_flags(file,global_options)
         end
-        file << "== Commands\n"
+        file << _("== Commands") + "\n"
         GLI.commands.values.sort.each do |command|
           next if command == self
           file << "[<tt>#{command.name}</tt>] #{command.description}\n"
@@ -83,7 +83,7 @@ module GLI
           file << "=== <tt>#{command.name} #{command.arguments_description}</tt>\n\n"
           file << "#{command.description}\n\n"
           if command.aliases
-            file << "*Aliases*\n"
+            file << _("*Aliases*")+"\n"
             command.aliases.each do |al|
               file << "* <tt><b>#{al}</b></tt>\n"
             end 
@@ -92,8 +92,8 @@ module GLI
           all_options = command.switches.merge(command.flags)
           file << "#{command.long_description}\n\n" if command.long_description
           if (all_options && all_options.length > 0)
-            file << "==== Options\n"
-            file << "These options are specified *after* the command.\n\n"
+            file << +_("==== Options")+"\n"
+            file << _("These options are specified *after* the command.")+"\n\n"
             output_flags(file,all_options)
           end
         end

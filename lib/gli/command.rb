@@ -49,7 +49,7 @@ module GLI
     # CR: This should probably not be here
     def usage #:nodoc:
       usage = name.to_s
-      usage += ' [command options]' if !flags.empty? || !switches.empty?
+      usage += ' '+_('[command options]') if !flags.empty? || !switches.empty?
       usage += ' ' + @arguments_description if @arguments_description
       usage
     end
@@ -75,7 +75,7 @@ module GLI
     # Create a command-specific flag, similar to GLI#flag
     def flag(*names)
       names = [names].flatten
-      GLI.verify_unused(names,flags,switches,"in command #{name}")
+      GLI.verify_unused(names,flags,switches, _("in command %{command}") % { :command => name })
       flag = Flag.new(names,@next_desc,@next_arg_name,@next_default_value,@next_long_desc)
       flags[flag.name] = flag
       clear_nexts
@@ -84,7 +84,7 @@ module GLI
     # Create a command-specific switch, similar to GLI#switch
     def switch(*names)
       names = [names].flatten
-      GLI.verify_unused(names,flags,switches,"in command #{name}")
+      GLI.verify_unused(names,flags,switches, _("in command %{command}") % { :command => name })
       switch = Switch.new(names,@next_desc,@next_long_desc)
       switches[switch.name] = switch
       clear_nexts

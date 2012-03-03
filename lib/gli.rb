@@ -10,6 +10,7 @@ require 'support/help.rb'
 require 'support/rdoc.rb'
 require 'support/initconfig.rb'
 require 'etc'
+require 'gli/i18n.rb'
 
 # A means to define and parse a command line interface that works as
 # Git's does, in that you specify global options, a command name, command
@@ -17,6 +18,7 @@ require 'etc'
 module GLI
   extend self
   include CopyOptionsToAliases
+  bindtextdomain "gli-lib"
 
   @@program_name = $0.split(/\//)[-1]
   @@post_block = nil
@@ -46,7 +48,7 @@ module GLI
     @@prog_desc = nil
     clear_nexts
 
-    desc 'Show this message'
+    desc _('Show this message')
     switch :help
   end
 
@@ -122,7 +124,7 @@ module GLI
   #     -f, --filename, --file-name=arg     Set the filename
   def flag(*names)
     names = [names].flatten
-    verify_unused(names,flags,switches,"in global options")
+    verify_unused(names,flags,switches, _("in global options"))
     flag = Flag.new(names,@@next_desc,@@next_arg_name,@@next_default_value,@@next_long_desc)
     flags[flag.name] = flag
     clear_nexts
@@ -134,7 +136,7 @@ module GLI
   #           and aliases for this switch.
   def switch(*names)
     names = [names].flatten
-    verify_unused(names,flags,switches,"in global options")
+    verify_unused(names,flags,switches, _("in global options"))
     switch = Switch.new(names,@@next_desc,@@next_long_desc)
     switches[switch.name] = switch
     clear_nexts
@@ -278,14 +280,15 @@ module GLI
   # Returns a String of the error message to show the user
   # +ex+:: The exception we caught that launched the error handling routines
   def error_message(ex) #:nodoc:
-    msg = "error: #{ex.message}"
+    msg = _("error: %{message}") % { :message => ex.message }
     case ex
     when UnknownCommand
-      msg += ". Use '#{program_name} help' for a list of commands"
+      msg += ". "+_("Use '%{app} help' for a list of commands") % { :app => program_name }
     when UnknownCommandArgument
-      msg += ". Use '#{program_name} help #{ex.command.name}' for a list of command options"
+      msg += ". "+_("Use '%{app} help %{command}' for a list of command options") %
+        { :app => program_name, :command => ex.command.name }
     when UnknownGlobalArgument
-      msg += ". Use '#{program_name} help' for a list of global options"
+      msg += ". "+_("Use '%{app} help' for a list of global options") % { :app => program_name }
     end
     msg
   end
@@ -417,7 +420,7 @@ module GLI
       if !command
         command_name = args.shift
         command = find_command(command_name)
-        raise UnknownCommand.new("Unknown command '#{command_name}'") if !command
+        raise UnknownCommand.new(_("Unknown command '%{command}'") % { :command => command_name }) if !command
         return parse_options_helper(args,
                                     global_options,
                                     command,
@@ -491,16 +494,16 @@ module GLI
             try_me.delete arg
             break 
           end
-          raise UnknownCommandArgument.new("Unknown option #{arg}",command) if arg =~ /^\-/ 
+          raise UnknownCommandArgument.new(_("Unknown option %{option}") % { :option => arg }, command) if arg =~ /^\-/ 
         end
         return [global_options,command,command_options,try_me + rest]
       else
         # Now we have our command name
         command_name = try_me.shift
-        raise UnknownGlobalArgument.new("Unknown option #{command_name}") if command_name =~ /^\-/
+        raise UnknownGlobalArgument.new(_("Unknown option %{option}") % { :option => command_name }) if command_name =~ /^\-/
 
         command = find_command(command_name)
-        raise UnknownCommand.new("Unknown command '#{command_name}'") if !command
+        raise UnknownCommand.new(_("Unknown command '%{command}'") % { :command => command_name}) if !command
 
         return parse_options_helper(rest,
                                     global_options,
@@ -532,10 +535,16 @@ module GLI
 
   def verify_unused_in_option(name,option_like,type,context) # :nodoc:
     return if name.to_s == 'help'
-    raise ArgumentError.new("#{name} has already been specified as a #{type} #{context}") if option_like[name]
+    if option_like[name]
+      raise ArgumentError.new(_("%{name} has already been specified as a %{type} %{context}") %
+        { :name => name, :type => type, :context => context })
+    end
     option_like.each do |one_option_name,one_option|
       if one_option.aliases
-        raise ArgumentError.new("#{name} has already been specified as an alias of #{type} #{one_option_name} #{context}") if one_option.aliases.include? name
+        if one_option.aliases.include? name
+          raise ArgumentError.new(_("%{name} has already been specified as an alias of %{type} %{one_option_name} %{context}") %
+             { :name => name, :type => type, :one_option_name => one_option_name, :context => context })
+        end
       end
     end
   end
@@ -562,7 +571,7 @@ module GLI
     end
   end
 
-  desc 'Show this message'
+  desc _('Show this message')
   switch :help
 
 end
